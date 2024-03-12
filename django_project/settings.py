@@ -25,12 +25,21 @@ SECRET_KEY = 'django-insecure-)skhmow25vpui)(j&u=xn)5iv%nk!ci7g^k56-zm9j9+_bkm5@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+
+    # Local Apps
+    'accounts.apps.AccountsConfig',
+    'posts.apps.PostsConfig',
+
+    # 3rd party libraries
+    'rest_framework',
+    'corsheaders',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,9 +48,28 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+# Cors port whitelist, allows certain ports to allow api
+
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000',
+    'http://localhost:8000',
+
+)
+
+# Cors port whitelist, allows certain ports to allow api
+
+CORS_TRUSTED_ORIGINS = ['http://localhost:3000']
+
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny"
+    ]
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -54,7 +82,7 @@ ROOT_URLCONF = 'django_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,3 +149,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Custom User Auth Model
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
