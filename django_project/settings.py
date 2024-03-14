@@ -62,7 +62,7 @@ CORS_TRUSTED_ORIGINS = ['http://localhost:3000']
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.AllowAny"
+        "rest_framework.permissions.IsAuthenticated"
     ]
 }
 
@@ -153,3 +153,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Custom User Auth Model
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+
+# Login redirect url
+
+LOGIN_REDIRECT_URL = '/api/v1/'
+
+# Logout redirect url
+
+LOGOUT_REDIRECT_URL = '/api/v1/'

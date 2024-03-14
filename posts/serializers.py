@@ -7,7 +7,14 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
 
         model = Posts
-        fields = '__all__'
+
+        fields = (
+            'id',
+            'author',
+            'title',
+            'body',
+            'created_at',
+        )
 
     def to_representation(self, instance) -> str:
 
